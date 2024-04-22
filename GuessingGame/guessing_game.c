@@ -25,7 +25,7 @@ int main(void) {
 	}
 
 	printf("Bingo!\n");
-	printf("³‰ğ‚Ü‚Å‚É“ü—Í‚µ‚½‰ñ”‚Í%d‚Å‚·\n", count);
+	printf("‚ ‚È‚½‚ª³‰ğ‚Ü‚Å‚É“ü—Í‚µ‚½‰ñ”‚Í%d‚Å‚·\n", count);
 
 	return 0;
 }
