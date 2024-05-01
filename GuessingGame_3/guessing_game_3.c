@@ -5,8 +5,8 @@
 
 #define ANSWER_MIN 1
 #define ANSWER_MAX 100
-#define INPUT_SIZE_MAX 4
 #define ANSWER_DIGITS 3
+#define INPUT_SIZE_MAX ANSWER_DIGITS+1
 #define TRUE 1
 #define FALSE 0
 
@@ -23,19 +23,23 @@ int InputNum() {
   int player_input = 0;
   char input[INPUT_SIZE_MAX];
   scanf_s("%s", input, INPUT_SIZE_MAX); //文字列入力
+  while (strlen(input) > ANSWER_DIGITS) {
+	  printf("%d桁以上の数字を入力しないでください", ANSWER_DIGITS);
+	  scanf_s("%s", input, INPUT_SIZE_MAX);
+  }
   while (input[index] != '\0') { //1文字ずつ確認
-    if ((input[index] < '0') || (input[index] > '9') || (strlen(input) > ANSWER_DIGITS)) { //0~9の文字定数以外が出たら
-      printf("%d桁の数字以外を入力しないでください\n", ANSWER_DIGITS);
-      printf("再入力：");
-	  player_input = -1;
-	  break;
-	}
+    if ((input[index] < '0') || (input[index] > '9')) { //0~9の文字定数以外が出たら
+	  BufferClear();
+	  printf("数字以外を入力しないでください\n");
+	  printf("再入力：");
+	  index = 0;
+	  player_input = 0;
+    }
 	player_input *= 10;
 	player_input += input[index] - '0';
 	index++;
   }
 
-  BufferClear();
   return player_input;
 }
 
@@ -68,9 +72,7 @@ void GuessingGame() {
   int input_count = 0;
 
   while (CheckAnswer(player_input, ans) == FALSE) {
-	do {
-	  player_input = InputNum();
-	} while (player_input == -1);
+	player_input = InputNum();
 	while (JudgeNum(player_input) == FALSE) {
       player_input = InputNum();
 	}
